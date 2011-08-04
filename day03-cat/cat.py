@@ -4,7 +4,7 @@ def cat(filename):
     '''Print the contents of a given file.'''
     with open(filename) as lines:
         for line in lines:
-            print(line)
+            print(line, end='')
 
 if __name__ == '__main__':
     args = get_args('EXACTLY', 1)
