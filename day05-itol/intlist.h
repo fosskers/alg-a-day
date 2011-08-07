@@ -1,9 +1,7 @@
-typedef struct INTLIST IntList;
-
-struct INTLIST {
+typedef struct INTLIST {
   int *list;  
   int size;  // Size of the int array.
-};
+} IntList;
 
 IntList * int_list(int);  // Creates an IntList of size 'int'.
 IntList * int_range(int);

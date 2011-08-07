@@ -4,13 +4,15 @@
 
 import Data.List ((\\))
 
+type FizzBuzzPair = (Int,String)
+
 main = do
   let nums   = zip [1..100] $ replicate 100 "FizzBuzz"
       noFizz = map (shaver 3 "Fizz") nums
       noBuzz = map (shaver 5 "Buzz") noFizz
   mapM (\(n,cs) -> if null cs then putStrLn $ show n else putStrLn cs) noBuzz
 
-shaver :: Int -> String -> (Int,String) -> (Int,String)
+shaver :: Int -> String -> FizzBuzzPair -> FizzBuzzPair
 shaver m shave (n,cs) = if not $ divBy m n then (n, cs \\ shave) else (n,cs)
 
 divBy :: Int -> Int -> Bool
