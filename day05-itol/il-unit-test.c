@@ -3,11 +3,13 @@
 
 void test_int_range();
 void test_int_range2();
+void test_list_wrap();
 void test_itol();
 
 int main() {
   test_int_range();
   test_int_range2();
+  test_list_wrap();
   test_itol();
 
   return 0;
@@ -38,6 +40,15 @@ void test_int_range2() {
   print_int_list(list);		   
   list = int_range2(5, 0);
   print_int_list(list);		   
+  printf("\n");
+}
+
+void test_list_wrap() {
+  IntList *list = NULL;
+
+  printf("Testing list_wrap()\n");
+  list = list_wrap(42);
+  print_int_list(list);
   printf("\n");
 }
 

@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include "intlist.h"
 
-struct INTLIST {
-  int *list;  
-  int size;  // Size of the int array.
-};
 
 IntList * int_list(int size) {
   // Creates an int array of length 'size'.
@@ -55,6 +51,16 @@ IntList * int_range2(int lower, int upper) {
       }	
     }
   }
+
+  return list;
+}
+
+IntList * list_wrap(int num) {
+  // Wraps an int in an IntList.
+  IntList *list = int_list(1);
+
+  if(list != NULL)
+    list->list[0] = num;
 
   return list;
 }

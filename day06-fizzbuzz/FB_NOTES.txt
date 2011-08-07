@@ -1,0 +1,34 @@
+Algorithm-a-Day : Day 06 : FizzBuzz
+
+ABOUT FIZZBUZZ
+--------------
+  Blogs tell me that this is a test to separate the men from the boys when
+it comes to programming. The instant I saw that I knew I had to tackle it,
+and so I went and wrote four solutions.
+  The idea is to print the numbers 1 to 100, except that for every multiple
+of 3 you must print 'Fizz', for every multiple of 5 'Buzz', and for multiples
+of both, 'FizzBuzz'.
+
+C
+-
+  Pretty simple. Taking advantage of the fact here that C requires you to
+manually enter your newline characters, you can simply follow your intuition,
+asking for multiplicity, then slapping the newline on at the end when you're
+done.
+
+PYTHON
+------
+  Similar to but just barely slimmer than the C version, here we employ 
+str.join() to make everything nice and clean. 
+
+HASKELL 1
+---------
+  Pretty much a one liner with a very ugly map. Not much different from the 
+previous two solutions. However...
+
+HASKELL 2
+---------
+  Oh baby. Here we go backwards. We start off with a list of tuples containing
+each number and the String 'FizzBuzz'. We then map through with a shaver
+function that strips that string of either Fizz or Buzz if it's not the 
+proper multiple. Much nicer to look at!
