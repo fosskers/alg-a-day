@@ -1,0 +1,52 @@
+Algorithm-a-Day : Day 08 : Primes
+
+ABOUT PRIMES
+------------
+  A prime number is an integer that is only divisible by 1 and itself.
+Thus, the lowest prime number is 2. Don't be fooled, 1 is not included.
+Prime numbers pop up in all sorts of places around the universe,
+so it's handy to know about them and also have libraries to work with them.
+  In all three versions I have included 3 things:
+    - A function that tests for primality.
+    - A function that given a number finds the nearest prime greater than it.
+    - An infinite data structure that uses the above two to produce all
+      the prime numbers ever. 
+
+Note: When testing for primality, one need only to check up to the square
+root of the number you're testing. We will see why this is with an example:
+  Concider the number 101. It's square root is quite nearly 10.
+We have so far tested up to 10, but no integer has divided evenly into 101
+yet. For a number greater than ten to divide cleanly into 101, its 'partner' 
+(e.g. in 15 = 3 * 5, the partner of 5 is 3) would have to be lower
+than 10. Yet since we've already checked up to ten, we know that no such
+partners exist. Therefore, 101 is prime.
+
+C
+-
+  Standard procedural programming. We utilize the intlist library from
+day 5 to implement the prime number list-producer.
+
+PYTHON
+------
+  Here we differ from the C version only slightly, getting a true 
+iterator class for the prime number generator, and the helper function
+_next_prime() is done in the functional style. Not that the function
+head() is a function I wrote to mimic the behavior of the function of same
+name that appears in functional languages.
+
+HASKELL
+-------
+  Here I present a unique solution of mine. The usual solution is to divide
+only by odd numbers up to the root of the number you're checking, but this 
+process can be sped up by only dividing by other prime numbers. Remember 
+prime factors? All integers (save 1) are created by multiplying a set of
+prime numbers together. A prime's only prime factor should thus be itself,
+and no other primes. Therefore dividing by odd numbers (while quick) is still
+doing more work than needs to be done.
+  This Haskell solution works by having the primality test (isPrime) and the
+infinite list of primes feed off each other. isPrime only divides by primes
+found in the 'primes' list. But 'primes' gets its values by filtering
+'isPrime' across all the odd integers... This might appear too circular
+to work, but it turns out that supplying the original list with the values
+2 and 3 is enough to produce all the primes, or check the primility of 
+any number.
