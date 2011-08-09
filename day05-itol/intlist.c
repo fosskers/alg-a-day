@@ -3,7 +3,7 @@
 #include "intlist.h"
 
 
-IntList * int_list(int size) {
+IntList * new_intlist(int size) {
   // Creates an int array of length 'size'.
   IntList *list = NULL;
 
@@ -24,7 +24,7 @@ IntList * int_list(int size) {
 IntList * int_range(int upper) {
   // Returns a list of ints from 0 to upper.
   int size = upper + 1;
-  IntList *list = int_list(size);
+  IntList *list = new_intlist(size);
   int count;
 
   if(list != NULL) {
@@ -42,7 +42,7 @@ IntList * int_range2(int lower, int upper) {
   int count;
 
   if(size > 0) {
-    list = int_list(size);
+    list = new_intlist(size);
 
     if(list != NULL) {
       for(count = 0; count < size; count++) {
@@ -57,7 +57,7 @@ IntList * int_range2(int lower, int upper) {
 
 IntList * list_wrap(int num) {
   // Wraps an int in an IntList.
-  IntList *list = int_list(1);
+  IntList *list = new_intlist(1);
 
   if(list != NULL)
     list->list[0] = num;
@@ -75,7 +75,7 @@ IntList * itol(int num) {
     list = int_range(0);
   else {
     digits = count_digits(num);
-    list = int_list(digits);
+    list = new_intlist(digits);
     if(list != NULL) {
       for(count = digits - 1; count >= 0; count--) {
 	list->list[count] = num % 10;
@@ -85,6 +85,23 @@ IntList * itol(int num) {
   }
 
   return list;
+}
+
+IntList * copy_intlist(IntList *original) {
+  // Creates a copy of an IntList.
+  IntList *copy = NULL;
+  int count;
+
+  if(original != NULL) {
+    copy = new_intlist(original->size);
+
+    // Copy elements over if possible.
+    if(copy != NULL)
+      for(count = 0; count < copy->size; count++)
+	copy->list[count] = original->list[count];
+  }
+
+  return copy;
 }
 
 int count_digits(int num) {
@@ -109,7 +126,7 @@ int list_length(IntList *list) {
   return length;
 }
 
-void print_int_list(IntList *list) {
+void print_intlist(IntList *list) {
   // Prints an int array prettily.
   int length, count;
 

@@ -25,12 +25,17 @@ C
 -
   Standard procedural programming. We utilize the intlist library from
 day 5 to implement the prime number list-producer.
+  NOTE: If you're having problems compiling primes.c (with the unit test, etc)
+and the compiler is giving you the following error:
+  primes.c:(.text+0x37): undefined reference to `sqrt'
+  Then you're getting a linker error. It's not your fault. Add the flag
+-lm (that's MINUS EL EM) and everything will work out.
 
 PYTHON
 ------
   Here we differ from the C version only slightly, getting a true 
 iterator class for the prime number generator, and the helper function
-_next_prime() is done in the functional style. Not that the function
+_next_prime() is done in the functional style. Note that the function
 head() is a function I wrote to mimic the behavior of the function of same
 name that appears in functional languages.
 

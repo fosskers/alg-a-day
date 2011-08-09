@@ -49,7 +49,7 @@ void test_yield_primes(int quant) {
 
   printf("Give me %d primes...\n", quant);
   list = yield_n_primes(quant);
-  print_int_list(list);
+  print_intlist(list);
   printf("\n");
 }
 

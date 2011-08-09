@@ -50,7 +50,7 @@ int _next_prime(int num) {
 }
 
 IntList * yield_n_primes(int quant) {
-  IntList *list = int_list(quant);
+  IntList *list = new_intlist(quant);
   int count;
   int curr;  // The current prime.
 

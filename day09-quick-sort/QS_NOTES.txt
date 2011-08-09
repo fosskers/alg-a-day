@@ -1,0 +1,41 @@
+Algorithm-a-Day : Day 09 : Quick Sort
+
+C
+-
+  The C version is quite standard, implementing an in-place quicksort
+which is not only fast, but also saves on memory.
+While pivot selection is apparently a hot topic in some circles,
+this simple version doesn't bother with any fancy work and simply
+takes the middle element (of each subset) as the pivot. One could be even
+lazier and skip this entirely, taking the first element as the pivot, but
+if your list is sorted perfectly backwards and sufficiently long enough,
+you could blow the stack. 
+
+-- I've included a short unit test for the C version as well, so feel
+   free to compile that in your spare time.
+
+PYTHON
+------
+  Nearly identical to the C version, and a lot shorter. 
+This implementation does its best not to inefficiently throw memory around,
+and (in theory) is an in-place sort.
+  As a bonus from using Python, we can specify default values in qsort()'s
+function definition. Take a look! This allows us to simply pass something 
+like:     qsort([4,5,2])     and everything will be taken care of.
+(Recall the C version where we had to pass the starting lower and upper
+bound values right off the bat)
+  We also chose a different method of pivot selection. Here, we took 
+three values, the lower, upper, and middle, sorted them, then chose the
+pivot position to be element number corresponding to the middle value
+(essentially the average). This ensures that the pivot will never be an 
+outlier, needlessly extending the stack and the amount of work that needs 
+to be done. A combination of several built-in functions takes care of 
+this work nicely for us, as can be seen in the get_pivot_pos() function.
+
+HASKELL
+-------
+  Ahhh filters and lazy evaluation. This solution is obviously the cleanest
+out of the three. The pivot here is the same as the C version, simply
+chosen as the middle element of the set. This can easily be made a one-liner
+if you don't much care for names and neat-looking code.
+
