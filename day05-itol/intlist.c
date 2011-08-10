@@ -55,12 +55,29 @@ IntList * int_range2(int lower, int upper) {
   return list;
 }
 
-IntList * list_wrap(int num) {
+IntList * wrap_int(int num) {
   // Wraps an int in an IntList.
   IntList *list = new_intlist(1);
 
   if(list != NULL)
     list->list[0] = num;
+
+  return list;
+}
+
+IntList * wrap_array(int *array, int size) {
+  // Wraps an int array in an IntList.
+  // Note that this is NOT a copy, but a simple wrapping!
+  IntList *list = NULL;
+
+  if(array != NULL && size > 0) {
+    list = new_intlist(size);
+    
+    if(list != NULL) {
+      list->list = array;
+      list->size = size;
+    }
+  }
 
   return list;
 }

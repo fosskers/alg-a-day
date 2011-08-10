@@ -3,7 +3,8 @@
 
 void test_int_range();
 void test_int_range2();
-void test_list_wrap();
+void test_wrap_int();
+void test_wrap_array();
 void test_itol();
 void test_copy_intlist();
 void test_copy_intlist_helper(IntList *);
@@ -11,7 +12,8 @@ void test_copy_intlist_helper(IntList *);
 int main() {
   test_int_range();
   test_int_range2();
-  test_list_wrap();
+  test_wrap_int();
+  test_wrap_array();
   test_itol();
   test_copy_intlist();
 
@@ -48,11 +50,21 @@ void test_int_range2() {
   printf("\n");
 }
 
-void test_list_wrap() {
+void test_wrap_int() {
   IntList *list = NULL;
 
-  printf("Testing list_wrap()\n");
-  list = list_wrap(42);
+  printf("Testing wrap_int()\n");
+  list = wrap_int(42);
+  print_intlist(list);
+  printf("\n");
+}
+
+void test_wrap_array() {
+  IntList *list = NULL;
+  int nums[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+
+  printf("Testing wrap_array()\n");
+  list = wrap_array(nums, 10);
   print_intlist(list);
   printf("\n");
 }
@@ -78,7 +90,7 @@ void test_copy_intlist() {
   printf("Testing copy_intlist()\n");
 
   printf("Single element...\n");
-  list = list_wrap(5);
+  list = wrap_int(5);
   test_copy_intlist_helper(list);
 
   printf("Two elements...\n");

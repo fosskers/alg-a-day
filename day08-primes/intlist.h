@@ -9,7 +9,8 @@ typedef struct INTLIST {
 IntList * new_intlist(int);  // Creates an IntList of size 'int'.
 IntList * int_range(int);
 IntList * int_range2(int, int);
-IntList * list_wrap(int);  // Wraps an int in an IntList.
+IntList * wrap_int(int);  // Wraps an int in an IntList.
+IntList * wrap_array(int *, int);  // Wraps an array in an IntList.
 IntList * itol(int);
 IntList * copy_intlist(IntList *);
 int count_digits(int);

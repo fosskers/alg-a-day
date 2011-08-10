@@ -1,0 +1,50 @@
+Algorithm-a-Day : Day 10 : Binary Search
+
+Got your copy of Programming Pearls at hand?
+
+ABOUT BINARY SEARCH
+-------------------
+  You have a phone book, and are particularly violent about looking for 
+numbers. You best friend, Mr. Ericson, has a number that you've forgotten.
+You open the phone book up right into the middle: McLean. Ericson comes
+earlier in the phone book than McLean, so you tear it in half, toss the
+unneeded portion over your shoulder and repeat the process. Firth? Garbage!
+Carlson? Garbage! You keep searching the middle name and tearing off
+the unneeded half until your find Mr. Ericson's number. If it's in there,
+hurray. If it isn't... well you've just wasted a phone book. 
+Welcome to binary search!
+  Binary search is a very fast way to search for elements in a sorted list.
+If the list is even one element off of being perfectly sorted, you cannot
+guarantee the results of the search. Given a big enough list, however,
+it can be a bother checking for sortedness before every search. There are 
+ways around this, but for us, we'll just assume the lists we're given
+are sorted.
+
+C
+-
+  Since the boolean data type doesn't exist in C, a failure to find the
+desired item with result in a -1. Usually we use 0 to represent False,
+but in this case 0 is a legitimate array index.
+  Target less than mid? Go left. Target greater than mid? Go right.
+Found it? Save and break. Using 'break' makes some people uncomfortable,
+but I find it clearer than say, altering 'lower' or 'upper' manually
+so that the loop will break on the next pass.
+  Make sure to run that **unit test**!
+
+PYTHON
+------
+  Sexier to look at than the C version. The only Python bonus we gain here
+is (less lines and) the ability to infer the length of the list we're given,
+instead of it being passed explicitely as in the C version.
+  Watch out for line 7, that's Python3 only.
+
+HASKELL
+-------
+  Nice and short. Notice a theme here? Guards and 'where' are our friends.
+Since Haskell doesn't have loop structures, this is of course done via
+recursion. It's safe to say that this will never blow the stack,
+as with a default stack depth limit of 1000, that allows us 1000 (give or 
+take a few) layers, or 2 ^ 1999 values. That number is over 7 lines long 
+on my 80 column terminal window. So no overflows :)
+  'take' and 'drop' also make things easy for tearing our proverbial
+phone book in half. Overall, just really short and clean!
