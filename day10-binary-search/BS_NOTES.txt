@@ -44,7 +44,7 @@ HASKELL
 Since Haskell doesn't have loop structures, this is of course done via
 recursion. It's safe to say that this will never blow the stack,
 as with a default stack depth limit of 1000, that allows us 1000 (give or 
-take a few) layers, or 2 ^ 1999 values. That number is over 7 lines long 
+take a few) layers, or 2 ^ 999 values. That number is over 3.5 lines long 
 on my 80 column terminal window. So no overflows :)
   'take' and 'drop' also make things easy for tearing our proverbial
 phone book in half. Overall, just really short and clean!
