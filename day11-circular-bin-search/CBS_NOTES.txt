@@ -1,0 +1,97 @@
+Algorithm-a-Day : Day 11 : Circular Binary Search
+
+Welcome to a binary search variant that I invented. It can be used practically
+to search large log files that are partially sorted, as described below.
+
+ABOUT CIRCULAR BINARY SEARCH
+----------------------------
+
+  This is a binary search algorithm that works on a list of data that 
+is sorted, but not linearly. That is, one end of the data, for whatever 
+reason, has been cut off and appended to the other side.
+Example:
+   [1, 2, 3, 4, 5, 6, 7, 8, 9] becomes
+   [7, 8, 9, 1, 2, 3, 4, 5, 6]
+
+  We refer then to the connection of 9 and 1 in the list above as "the link".
+The position of the link relative to the "mid" becomes important in 
+the search.
+
+*********
+* Logic *
+*********
+
+  At first we proceed through the logic mostly as normal, except that 
+instead of testing for general "less than/greater than" the mid point, 
+we must test for specific inclusion in the sets as follows:
+  lower <= value < mid
+  mid < value <= upper
+If these fail, we must move to a logic step unique to circular bin search. 
+
+  Here, we must determine where the "link" is relative to the mid point. 
+This is not difficult. If the lower value is greater than the mid
+value, (in a normally sorted list this would never happen) then we know 
+the link to be to the left of mid. Otherwise, it's on the right. Fortunately,
+the target value will *always* be on the same side of mid as the "link".
+
+*****************
+* A Run Through *
+*****************
+
+Example list: [7, 8, 9, 1, 2, 3, 4, 5, 6]
+
+1. We're looking for 8.
+2. First middle value: 2. 
+3. Is 8 greater than or equal to seven, and less than 2? No.
+4. Is 8 greater than 2 and less than or equal to 6? No.
+5. Determine which side the link is on.
+  a. Is 7 greater than 2? Yes.
+  b. Therefore the link is on the left side, and so is our value.
+6. New middle value: 9.
+7. Is 8 greater than or equal to 7, and less than 9? Yes.
+8. New middle value: 8.
+9. Is 8 equal to 8? Yes.
+10. We're done.
+
+*********
+* Notes *
+*********
+
+1. This circular binary search also works as a normal binary search. 
+   A perfectly sorted list would simply never activate the extended logic, 
+   and things would proceed as normal. 
+2. Q: 'Why not just sort the list and then search?'
+   A: This isn't always possible. Take for instance searching a 50 gig
+      log file for entries: sorting that isn't an option.
+
+*************
+* Extension *
+*************
+
+  Combined with various seek and read functions, this algorithm can be used
+to perform a binary search on extremely large log files that have their
+day-break at any point in the file. By switching 'target == items[mid]' to use
+a regular expression, you can search by any pattern (times, dates, etc.).
+
+*******************
+* Implementations *
+*******************
+
+C
+-
+  Not much longer than a normal binary search. Note line 24 where the 
+circular binary search logic kicks in.
+
+PYTHON
+------
+  I originally wrote this months ago for a Reddit programming challenge.
+It did in fact use regexes, and did search for data entries across a 70 gig
+log file. There is nothing uniquely Python about this solution, except
+the inference of the lists length.
+
+HASKELL
+-------
+  Adding two extra conditions brought this version up to speed as well.
+This is different from the other two versions in that it returns Maybe value,
+giving 'Nothing' for a value that couldn't be found, and 'Just x' where 'x'
+would be the position of the desired element.

@@ -8,6 +8,8 @@ void test_wrap_array();
 void test_itol();
 void test_copy_intlist();
 void test_copy_intlist_helper(IntList *);
+void test_fuse_intlists();
+void test_fuse_intlists_helper(IntList *, IntList *);
 
 int main() {
   test_int_range();
@@ -16,6 +18,7 @@ int main() {
   test_wrap_array();
   test_itol();
   test_copy_intlist();
+  test_fuse_intlists();
 
   printf("Tests complete.\n");
 
@@ -116,4 +119,43 @@ void test_copy_intlist_helper(IntList *list) {
   copy = copy_intlist(list);
   printf("Copy:     ");
   print_intlist(copy);
+}
+
+void test_fuse_intlists() {
+  IntList *first = NULL;
+  IntList *second = NULL;
+
+  printf("Testing fuse_intlists()\n");
+
+  // NULL lists.
+  test_fuse_intlists_helper(NULL, NULL);
+
+  // Fusing singletons.
+  first = wrap_int(5);
+  second = wrap_int(9);
+  test_fuse_intlists_helper(first, second);
+
+  // Twos.
+  first = itol(12);
+  second = itol(56);
+  test_fuse_intlists_helper(first, second);
+
+  // Different lenths.
+  first = itol(154);
+  second = itol(98354);
+  test_fuse_intlists_helper(first, second);
+
+  printf("\n");
+}
+
+void test_fuse_intlists_helper(IntList *first, IntList *second) {
+  IntList *list = NULL;
+  
+  printf("Attempting to fuse:\n");
+  print_intlist(first);
+  print_intlist(second);
+  list = fuse_intlists(first, second);
+  printf("Fused into: ");
+  print_intlist(list);
+  printf("\n");
 }

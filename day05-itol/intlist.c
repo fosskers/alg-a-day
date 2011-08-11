@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "intlist.h"
 
-
 IntList * new_intlist(int size) {
   // Creates an int array of length 'size'.
   IntList *list = NULL;
@@ -121,6 +120,33 @@ IntList * copy_intlist(IntList *original) {
   return copy;
 }
 
+IntList * fuse_intlists(IntList *first, IntList *second) {
+  // Concatinates the given IntLists into a new one.
+  IntList *fused = NULL;
+  int count = 0;  // Index in fused to copy to.
+  int count2;  // Index in first or second to copy from.
+
+  if(first != NULL && second != NULL) {
+    fused = new_intlist(first->size + second->size);
+
+    if(fused != NULL) {
+      // Copy first.
+      for(count2 = 0; count2 < first->size; count2++) {
+	fused->list[count] = first->list[count2];
+	count++;
+      }
+
+      // Copy second.
+      for(count2 = 0; count2 < second->size; count2++) {
+	fused->list[count] = second->list[count2];
+	count++;
+      }
+    }
+  }
+
+  return fused;
+}
+
 int count_digits(int num) {
   // Determines how many digits a number has.
   int result = 0;
@@ -161,4 +187,12 @@ void print_intlist(IntList *list) {
   }
   else
     printf("Attempted to print a NULL IntList.\n");
+}
+
+void destroy_intlist(IntList *list) {
+  // Frees the memory allocated to the given IntList.
+  if(list != NULL) {
+    free(list->list);
+    free(list);
+  }
 }
