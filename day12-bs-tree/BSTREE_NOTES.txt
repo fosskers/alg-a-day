@@ -1,0 +1,63 @@
+Algorithm-a-Day : Day ?? : Binary Search Tree
+
+ABOUT BINARY SEARCH TREE
+------------------------
+  A handy tree structure built for fast look-ups!
+Our versions here today aren't self-balancing, meaning that if your root
+sucks you could end up with a very lopsided tree.
+Many built-in data structures in modern languages are implemented with trees,
+so it's importaant to know what they are and how they work.
+This included knowing how the following things are done:
+
+-- Recursion. 
+-- Queues.
+-- Depth-first searches.
+-- Breadth-first searches.
+(But for a binary search tree we don't have to worry about those types
+of searches)
+
+ABOUT PRINTING TREE STRUCTURES
+------------------------------
+  This causes so much unnecessary suffering, so I created a slick recursive
+way to print out tree structures opening out to the right. Each leaf gets
+its own line, and everything is indented properly. It's quite easy to read. 
+Check out both the py_test.py file and the C unit test to see what 
+I'm talking about. 
+
+C
+-
+  Here we had to introduce some new structs. Allocating memory for them is
+standard run-of-the-mill stuff. Don't forget to check for NULL pointers
+everywhere possible. I'll be there with an "I told you so" when a Segfault 
+cracks your computer in half.
+  Insertion and checking for containment is all done with recursion. These 
+things can be done iteratively too, but it can get silly.
+  Printing here, unlike the Python and Haskell versions, is done without
+any string creation, and instead prints right in the functions itself.
+  There is a **unit test** file, so make sure to check that out too.
+
+PYTHON
+------
+  Shorter and sweeter than the C version, but all around the same.
+Just as we've had in other Python versions of algorithms thus far, we get
+to specify 'special functions' that allow us to use keywords on our Tree.
+    print(tree)
+    if 5 in tree: ...
+    etc.
+  For printing, here we're gradually building up a list of strings of the 
+leaves, then concatinating it all at the end in the __str__ function.
+Remember that in Python, str.join() is always better than str + str.
+
+HASKELL
+-------
+  God functional programming rocks. Here we start by defining instances
+of typeclasses for the Tree type, allowing us to (via Functor) map functions
+across our Tree, and (via Foldable) use folds across it as well.
+  While it may look a little different, the function showTree produces 
+the same result as the print functions in the C and Python versions. Once
+again, a victory for recursion. showTree is called by 'show', as is standard.
+  Everything else is essentially the same, but with the Haskell twist.
+Even so, its over half as short as the C version (and that's with all our
+instance definitions included!).
+  In conclusion, Haskell continues to impress me with its power of 
+expressiveness.
