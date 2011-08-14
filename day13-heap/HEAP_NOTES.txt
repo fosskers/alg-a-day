@@ -1,0 +1,100 @@
+Algorithm-a-Day : Day ?? : (Binary Maximum) Heap
+
+ABOUT HEAPS
+-----------
+  Heaps are essentially trees that satisfy something called "The Heap
+Property". This property states that for every parent node,
+its two (or more) children will be less than it (by whatever method
+of comparison you're using). The order of the children doesn't matter.
+Nor does is matter if a parent contents children greater than that
+parent's sibling node. 
+  Heaps bless us with an interesting property: the children are always 
+an _inductable_ distance away from their parent. The root, being the first
+parent, will always have children at Nodes 2 and 3. Likewise the 4th Node
+will belong to root's first child, etc.
+  This pattern allows us to bypass implementing a tree completely,
+and instead store the Heap as a list/array, simply inducing the indexes
+of the child/parent nodes whenever we need them.
+
+INDEX ARITHMATIC
+----------------
+  For a given node at index i:
+    - children @ a[2i+1] and a[2i+2]
+    - parent @ a[floor((i−1)/2)]
+
+WHAT HEAPS DO
+-------------
+  Heaps need to be able to do a few things:
+    - Insert and rebalance.
+    - Delete the root and rebalance.
+    - Yield the max (or min) value present.
+    - Merge with another heap.
+
+INSERTION
+---------
+  New values are inserted at the end of the Heap. This is trivial if the
+Heap is implemented as an array internally. We must then 'cascade-up', 
+swapping the new child with its parent until the Heap Property is restored.
+  At most this would only ever take as many operations as there are
+layers in the Heap.
+
+ROOT DELETION
+-------------
+  When removing the root, take the last leaf and make it the root.
+Then 'cascade-down', always swapping the current leaf with its greater child
+until again, the Heap Property is restored.
+
+YIELDING THE MAX/MIN
+--------------------
+  While this isn't the case for all types of Heaps, Binary Max/Min heaps
+can complete this in a single operation.
+
+MERGING HEAPS
+-------------
+  Simply yield one to the other, inserting each value and cascading as
+necessary.
+
+WHAT HEAPS ARE USED FOR
+-----------------------
+  Heaps are used in a particular sorting algorithm called Heap Sort,
+as well in graphing algorithms like Dijkstra's Algorithm.
+
+IMPLEMENTATIONS
+---------------
+C
+-
+  As an experiment, I wrote this version in the Linux Kernel style of 
+C coding. Turned out pretty neat, if you don't mind 8-space tabs.
+  This does everything we promised Heaps have to do: insertion, deletion,
+finding the max, and merging. It also prints itself out _like a tree_, 
+just like Binary Search Tree from before.
+  I went all-out with error checking too, and just hope I did it 
+sensibly.
+
+PYTHON
+------
+  Less than half the length of the C version... who'da thought? Python gives
+us a lot of power here. Merging heaps is as simple as inserting all
+the elements of a given iterator. It doesn't even have to be a heap ^^!
+  Again, lots of power with __iter__ and __str__.
+  You may notice that cascade_down() is quite different between the C
+and Python versions. The Python version uses a more general approach to 
+determine the greater child (and its index) and actually allows us to
+have more than 2 children in a future implementation. The C version doesn't
+even begin to allow this.
+
+HASKELL
+-------
+  As lists in Haskell are Linked Lists and not random access arrays,
+implementing a Heap with a list would be a bit foolish. Instead,
+we go ahead and create our own data type, much like we did with
+the Binary Tree. Essentially by changing how new items are added did we 
+make this a Heap. Notice that this Heap is foldable just like the BS Tree was,
+and that this Heap will print out properly in a Tree shape, just like the C
+and Python versions.
+  I admit that heapInsert and cascade are so close to each other that it's
+a bit disturbing. I'm sure the solution is obvious, and that it just hasn't
+dawned on me yet.
+  Removing the root in this version is also less complicated (and slower).
+We simply ignore the root and heapMerge the two branches together.
+  listToHeap isn't really necessary, but it helps out with testing.

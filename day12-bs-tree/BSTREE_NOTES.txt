@@ -1,4 +1,4 @@
-Algorithm-a-Day : Day ?? : Binary Search Tree
+Algorithm-a-Day : Day 12 : Binary Search Tree
 
 ABOUT BINARY SEARCH TREE
 ------------------------
