@@ -1,5 +1,16 @@
 -- Binary Max Heap in Haskell
 
+module Heap (
+  Heap(..),
+  showHeap,
+  newHeap,
+  heapMax,
+  heapInsert,
+  heapRemove,
+  heapMerge,
+  listToHeap
+  ) where
+
 import qualified Data.Foldable as F
 import Data.Monoid 
 
@@ -12,7 +23,7 @@ instance F.Foldable Heap where
                                   F.foldMap f right
 
 instance Show a => Show (Heap a) where
-  show EmptyHeap  = "Empty Heap"
+  show EmptyHeap  = "EmptyHeap"
   show leaf = showHeap leaf 0
   
 showHeap :: Show a => Heap a -> Int -> String  

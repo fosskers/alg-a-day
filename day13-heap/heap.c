@@ -194,27 +194,45 @@ int delete_max(Heap *heap)
 int cascade_down(Heap *heap, int index)
 {
 	int result = 0;
-	int good_child, fst_pos, snd_pos;
+	int older_pos; 
 
 	if(heap == NULL)
 		return -NULLPOINT;
 	else if(!in_heap(heap, index))
 		return -INDEXERR;
 
-	fst_pos = first_born_pos(index);
-	snd_pos = second_born_pos(index);
+	older_pos = find_older_pos(heap, index);
 
-	if(heap->list[fst_pos] > heap->list[snd_pos])
-		good_child = fst_pos;
-	else
-		good_child = snd_pos;
-
-	if(heap->list[index] < heap->list[good_child]) {
-		swap_elements(heap, index, good_child);
-		result = cascade_down(heap, good_child);
+	if(older_pos) {
+		if(heap->list[index] < heap->list[older_pos]) {
+			swap_elements(heap, index, older_pos);
+			result = cascade_down(heap, older_pos);
+		}
 	}
 
 	return result;
+}
+
+int find_older_pos(Heap *heap, int index)
+{	
+	int fst_pos, snd_pos;
+	int older_pos = 0;
+
+	if(heap == NULL)
+		return -NULLPOINT;
+
+	fst_pos = first_born_pos(index);
+	snd_pos = second_born_pos(index);
+	
+	if(in_heap(heap, fst_pos)) {
+		if(in_heap(heap, snd_pos) && \
+		   heap->list[snd_pos] > heap->list[fst_pos])
+			older_pos = snd_pos;
+		else
+			older_pos = fst_pos;
+	}
+	
+	return older_pos;
 }
 
 int destroy_heap(Heap *heap)

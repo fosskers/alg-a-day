@@ -1,0 +1,39 @@
+Algorithm-a-Day : Day 14 : Heap Sort
+
+ABOUT HEAPSORT
+--------------
+  Heap sort is one of the most conceptually simple sorts out there - that is,
+if you already have a Heap. Simply grab the first (the maximum value!)
+element, store it, perform head-deletion, repeat.
+This process is demonstrated most elegantly in the Haskell version.
+For the C and Python versions, however, instead of using the head 
+removal function out-right, our implementations are going to go about things 
+just a little differently. 
+
+C
+-
+  The C and Python version share a quality: they trick the Heap
+into thinking it's shorter than it is, then hiding the gradually sorted
+values at the end of the Heap instead. In doing this, we are able to
+perform many cascade-downs without disturbing those sorted values
+that we accumulate at the end.
+  For the sake of continuity, this version returns us the Heap's 
+inner array wrapped in an IntList. When doing a HeapSort in place, 
+the original Heap is essentially ruined, so this shouldn't be a problem.
+
+PYTHON
+------
+  Nice and short, and essentially identical to the C version.
+It's still running about 3 times slower than a CombSort11, which
+is a bit pathetic. Unlike the C version (as has been the case with
+all of our data structures so far) Python can handle any type, not just
+ints.
+
+HASKELL
+-------
+  At the moment, heapRemove is so inefficient that heapSort has trouble
+sorting a list of only a few hundred elements. It's not the sort's fault,
+the underlying algorithm just sucks.
+  In the Heap Sort algorithm itself, however, we see Haskell's
+powerful list creation functionality hard at work. 
+

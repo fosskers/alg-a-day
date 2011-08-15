@@ -22,7 +22,6 @@ int cascade_up(Heap *, int);
 int swap_elements(Heap *, int, int);
 int delete_max(Heap *);
 int cascade_down(Heap *, int);
-int find_older_pos(Heap *, int);
 int destroy_heap(Heap *);
 int print_heap(Heap *);
 int _print_heap(Heap *, int, int);

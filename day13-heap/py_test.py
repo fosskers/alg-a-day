@@ -7,6 +7,14 @@ def test(heap, items):
         heap.insert(item)
         print(heap)
 
+def delete_text(heap):
+    print('Testing delete_max()...')
+    print(heap)
+    while(len(heap) > 0):
+        print('Deleting max...')
+        heap.delete_max()
+        print(heap)
+
 if __name__ == '__main__':
     x = Heap([1,8,5,0,3,2,6])
     print('First Heap:')
@@ -17,7 +25,8 @@ if __name__ == '__main__':
     print('Merge!')
     x.merge(y)
     print(x)
-    print('Deleting max...')
-    x.delete_max()
-    print(x)
+    x = Heap(range(5))
+    delete_text(x)
+    
+        
     

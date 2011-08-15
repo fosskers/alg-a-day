@@ -4,13 +4,17 @@ class Heap():
     '''A Maximum Binary Heap.'''
     def __init__(self, items=None):
         self.leaves = []
-        self.lim = None  # Used in Heap Sort.
+        self.indicies = {}
+        self.lim = 0  # Used in Heap Sort.
         if items:
             self.merge(items)
 
     def __iter__(self):
         for leaf in self.leaves:
             yield leaf
+            
+    def __len__(self):
+        return len(self.leaves)
  
     def __str__(self):
         '''Similar to the algorithm found in the Binary Search Tree lib.'''
@@ -27,13 +31,14 @@ class Heap():
             tree.append(''.join((' ' * ind, str(self.leaves[index]), '\n')))
             self._str(tree, self.first_born_pos(index), ind + 2)
 
+    def merge(self, iterator):
+        '''Merges this Heap with a fellow iterator.'''
+        for item in iterator:
+            self.insert(item)
+
     def in_heap(self, index):
         '''Given an index, determines if there is a leaf there.'''
-        if self.lim:  # Condition for heap sort, for hiding sorted values.
-            result = True if index < lim else False
-        else:
-            result = True if index < len(self.leaves) else False
-        return result
+        return True if index < self.lim else False
 
     def first_born_pos(self, index):
         '''Given a parent's index, return the index of its first child.'''
@@ -50,7 +55,8 @@ class Heap():
     def insert(self, item):
         '''Inserts a new child into the Heap.'''
         self.leaves.append(item)
-        self.cascade_up(len(self.leaves) - 1)
+        self.lim += 1
+        self.cascade_up(self.lim - 1)
 
     def cascade_up(self, index):
         '''Given an index of a child, raises that child through the heap
@@ -65,7 +71,6 @@ class Heap():
     def swap(self, n, m):
         '''Swaps two elements.'''
         self.leaves[n], self.leaves[m] = self.leaves[m], self.leaves[n]
-
     
     def find_max(self):
         '''Returns the max.'''
@@ -75,23 +80,28 @@ class Heap():
         '''Deletes the root (maximum value).'''
         self.swap(0, -1)  
         del self.leaves[-1]
+        self.lim -= 1
         self.cascade_down(0)
 
     def cascade_down(self, index):
         '''Given an index of a parent, lowers it through the Heap
         as far as it needs to go to restore the Heap Property.
         '''
-        pos = (self.first_born_pos(index), self.second_born_pos(index))
-        pos = list(filter(lambda p: True if self.in_heap(p) else False, pos))
-        if pos:
-            pairs = {self.leaves[x]: x for x in pos}
-            older_pos = pairs[max(pairs)] 
+        older_pos = self.find_older_pos(index)
+        if older_pos:
             if self.leaves[older_pos] > self.leaves[index]:
                 self.swap(older_pos, index)
                 self.cascade_down(older_pos)
-                    
-    def merge(self, iterator):
-        '''Merges this Heap with a fellow iterator.'''
-        for item in iterator:
-            self.insert(item)
-        
+
+    def find_older_pos(self, index):
+        '''Given an index, determines which of its children are greater.'''
+        fst_pos = self.first_born_pos(index)
+        snd_pos = self.second_born_pos(index)
+        older_pos = None
+        if self.in_heap(fst_pos):
+            if (self.in_heap(snd_pos) and \
+                self.leaves[snd_pos] > self.leaves[fst_pos]):
+                older_pos = snd_pos
+            else:
+                older_pos = fst_pos
+        return older_pos

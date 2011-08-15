@@ -1,7 +1,10 @@
-Algorithm-a-Day : Day ?? : (Binary Maximum) Heap
+Algorithm-a-Day : Day 13 : (Binary Maximum) Heap
 
 ABOUT HEAPS
 -----------
+  *This Heap is _not_ the memory Heap (as opposed to the Stack). The data
+structure came first.*
+
   Heaps are essentially trees that satisfy something called "The Heap
 Property". This property states that for every parent node,
 its two (or more) children will be less than it (by whatever method
@@ -77,11 +80,6 @@ PYTHON
 us a lot of power here. Merging heaps is as simple as inserting all
 the elements of a given iterator. It doesn't even have to be a heap ^^!
   Again, lots of power with __iter__ and __str__.
-  You may notice that cascade_down() is quite different between the C
-and Python versions. The Python version uses a more general approach to 
-determine the greater child (and its index) and actually allows us to
-have more than 2 children in a future implementation. The C version doesn't
-even begin to allow this.
 
 HASKELL
 -------
