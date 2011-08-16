@@ -1,0 +1,15 @@
+Hello, my name is Colin Woodbury. My email address is colingw@gmail.com.
+Do you know my friend? His name is Daisuke Honda. He has two addresses.
+They are daisuke-413@docomo.ne.jp and daidaidai@yahoo.co.jp.
+My other friend Jim has an email of robin___@hotmail.com.
+If I put my email address in captials, it's COLINGW@GMAIL.COM.
+Isn't that neat?
+Did you know there are some emails that have interesting formatting?
+For example, this is a valid email: i.have.the.power@heman.de
+Another test -> thebest@emailever.com!?!?!?!
+This is totally bad: A@b@c@example.com!
+And this!: ()[]\;:,<>@example.com
+Here is an email in quotes: (some_email@lol.com)
+
+What if I have some 'bob@gmail.com')
+Or oneemail@this.comtwoemail@that.com or 1234@5678.com?

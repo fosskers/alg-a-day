@@ -1,0 +1,62 @@
+Algorithm-a-Day : Day 15 : Email Address Parsing with Regex
+
+Of course, inspired by: (XKCD URL)
+And on that note: (LINK TO XKCD4ME REPO)
+
+ABOUT REGULAR EXPRESSIONS
+-------------------------
+  Regular expressions are a very powerful tool for finding and replacing
+substring patterns in strings. Regex's are a language of their own,
+separate from anything we've been using so far, but luckily they are mostly
+uniform across programming languages.
+
+(Find that prime solving regex)
+
+PYTHON
+------
+  The regex we're given is:
+    \b([a-zA-Z0-9-_.]+)@(\w+[.][a-zA-Z.]+)
+but more specifically in a Pythonic context we can look at it directly as:
+    r"\b([a-zA-Z0-9-_.]+)@(\w+[.][a-zA-Z.]+)"
+
+  The r"" type of string is called a raw string, and it doesn't accept
+special characters. The string r"haha this won't \n print a new line"
+will print:
+    haha this won't \n print a new line
+Essentially, backslashes are not interpreted. This is important for regex's
+because backslashes also have special meaning, which means that in a regular
+string you would have to double-escape your special characters. We won't
+bother with that, and just go ahead and use raw strings.
+  See line 6. Holy moon language. Note that we could have written the regex
+like this:
+    regex = r"""\b
+		([a-zA-Z0-9-_.]+)
+		@
+		(\w
+		[.]
+		[a-zA-Z.]+)
+		"""
+
+and then called it like this:
+    pattern = re.compile(regex, 'VERBOSE')
+Verbose mode allows whitespace and newlines to be ignored in the given regex.
+This lets us break up longer regex's into more digestable chunks.
+We can also comment them, like this:
+    regex = r"""\b                 # Match the start of a word.
+		([a-zA-Z0-9-_.]+)  # Match one or more characters from small
+				   # 'a' to 'z', capital 'A' to 'Z', and 
+				   # a few special characters.
+		@                  # Match the 'at symbol' (or 'amphere').
+		(\w		   # Match any letter or digit.
+		[.]		   # Match a period. This has to be in a []!
+		[a-zA-Z.]+)	   # Match one or more letter or period.
+		"""
+
+The last condition is important because some URLs from other countries have
+multiple extentions to them. For example, a Yahoo email address from Japan
+would end in: @yahoo.co.jp
+  The rest is straight forward; we compile the regex, ask it for matches,
+then store said matches after some string working.
+  Try poking around at the regex itself to see what makes the script
+explode and what doesn't. Then, try making one that parses URLs. Maybe to run
+across an HTML file? Your life as a professional scraper begins today!
