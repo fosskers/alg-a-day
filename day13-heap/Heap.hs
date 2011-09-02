@@ -12,6 +12,7 @@ module Heap (
   ) where
 
 import qualified Data.Foldable as F
+import Data.Maybe (fromJust)  
 import Data.Monoid 
 
 data Heap a = EmptyHeap | Leaf a (Heap a) (Heap a) deriving (Eq, Ord)
@@ -64,8 +65,17 @@ cascade x (Leaf a l r)
       r' = if r < l then heapInsert a r else r
 
 heapRemove :: Ord a => Heap a -> Heap a
-heapRemove EmptyHeap    = EmptyHeap
+heapRemove EmptyHeap = EmptyHeap
+heapRemove (Leaf x EmptyHeap EmptyHeap) = EmptyHeap
+
+--heapRemove (Leaf x l EmptyHeap) = 
+{-
 heapRemove (Leaf a l r) = heapMerge l r  -- This is severe cheating.
+-}
+
+shiftOut :: Ord a => Heap a -> Heap a
+shiftOut (Leaf _ EmptyHeap EmptyHeap) = EmptyHeap  -- Done.
+shiftOut (Leaf x l EmptyHeap) = Leaf (fromJust $ heapMax l) 
 
 heapMerge :: Ord a => Heap a -> Heap a -> Heap a
 heapMerge orig other = F.foldl (\acc n -> heapInsert n acc) orig other

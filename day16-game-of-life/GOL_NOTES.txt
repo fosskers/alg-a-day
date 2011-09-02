@@ -1,0 +1,89 @@
+Algorithm-a-Day : Day 16 : Conway's Game of Life
+
+ABOUT THE GAME OF LIFE
+----------------------
+  The Game of Life was invented by an English mathematician named John Conway
+in 1970. It is a no-player game of the birth and death of cells in 
+a grid governed by four simple rules:
+ - Any live cell with fewer than two live neighbours dies. (Lonliness)
+ - Any live cell with two or three live neighbours stays alive. 
+ - Any live cell with more than three neighbours dies. (Over-crowding)
+ - Any dead cell with exactly three live neighbours becomes alive. (Birth)
+
+  The Game of Life, while not receiving any interaction from the user, 
+is still incredibly entertaining. The movements and patterns of the cells 
+shifting in and out of existence are fascinating to watch.
+  The Game of Life, like (most of) the other algorithms presented in 
+Algorithm-a-Day, is a classic, having been implemented a million times 
+by a million people. Creating your own version is an excellent exercise 
+in creativity and optimization. 
+How big of an ecosystem can you create? How quickly can your version cycle 
+through the generations? Are there any large swathes of checks you can 
+cut out?
+  It's time to fire up your favourite editor, and create Life.
+
+PYTHON 2.x
+----------
+  Only a Python version is included this time, as we use pygame to display 
+the cells. Pygame is quite easy to use, but as of the present it is limited 
+to Python 2.
+
+Running GOL
+-----------
+  You will need pygame installed in order to run this. To get it you can 
+pay their website a visit, or if you're a Linux badass, just grab the package.
+  Run the script in the following ways:
+    python game_of_life.py r  # Gives a random starting arrangement.
+    python game_of_life.py f  # ALL spaces in the grid are initially alive.
+    python game_of_life.py e  # All spaces in the grid are initially DEAD.
+    
+  Note that no extra letter code at the end will produce the same effect
+as 'r'.
+  When running, you'll notice at the bottom of the screen the current 
+generation number, as well as the current number of live cells.
+
+Extra Commands during Execution
+-------------------------------
+  - Pressing 'p' will pause all cell activity. You can view the current 
+    generation at your leisure.
+  - Pressing 'q' will quit the script. Alternatively, you can hit whatever 
+    native 'quit' button your OS provides. 
+  - WHILE PAUSED you can freely click anywhere on the screen to add cells!
+    Unpause to see how your changes affect the other cells!
+
+Implenting GOL in Python
+------------------------
+  The standard approach may be: create a huge multi-dimensional array, fill 
+it with Cell objects, True/False, 1's and 0's, etc, and scan the whole thing,
+comparing each element with the ones around it. Save the results of births, 
+survivals, and deaths into a second helper array, then display it all.
+(Saving the results immediately into the same array will cause a sort of 
+'order' to the birthing, where new-borns will affect the births and deaths
+of cells in the same generation. This is not what we want.)
+So, sounds great, right?
+  Consider this: you're working with a 300 x 300 grid of cells, 
+totalling 90000 of the little buggers. You'll have to make 8 comparisons 
+per cell to see what lives and dies, all the while making sure you're 
+not running your array bounds. Negative indices aren't a problem in Python, 
+but overruns still are. 
+You're looking at 720000 comparisons per generation. Damn. Also, imagine
+you only have a handful of live cells off in a corner of your grid. The empty
+areas of your grid will stay empty from generation to generation, but 
+your algorithm will keep checking to see if they should be birthed, 
+wasting processing power.
+  How do we get around all this?
+  This is where Python comes to the rescue with its built-in 'set' class. 
+Sets are extremely efficient at dealing with batches of data that don't 
+need to be in order. Checking for containment is also very quick. 
+Our version today stores the coordinates of live cells in a set, and 
+only checks the 8 cells around those live cells.
+  Our original four rules are also reduced to two checks thanks to python, 
+which can be view at the end of the next_generation() function.
+
+Extra Info
+----------
+  - Increase/decrease the global variable 'MAG' to change the magnification 
+    of the cells in the grid. A lower number will mean more cells visible on 
+    the screen.
+  - Running the script with the 'f' code will create a very symmetric,
+    very beautiful pattern that stabilizs after around 3600 generations.
