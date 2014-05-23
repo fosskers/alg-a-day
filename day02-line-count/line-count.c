@@ -5,7 +5,7 @@
 int main() {
   char c;
   int count = 1;  // Number of lines.
-
+  
   while((c = getchar()) != EOF)
     if(c == '\n')
       count++;
