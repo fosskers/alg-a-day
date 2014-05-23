@@ -5,8 +5,9 @@
 int main() {
   char c;
   int count = 1;  // Number of lines.
-
-  while((c = getchar()) != EOF)
+  freopen("namefile","r",stdin);
+  
+  while((c = fgetchar()) != EOF)
     if(c == '\n')
       count++;
 
